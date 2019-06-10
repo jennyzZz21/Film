@@ -1,4 +1,4 @@
-package edu.ucsb.ece.ece150.pickture;
+package edu.ucsb.ece.ece150.film;
 
 import android.os.Parcel;
 import android.support.v7.app.AppCompatActivity;
@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
     EditText edMName;
 
     Movie movie_obj;
-
-    ArrayList<Movie> movieList = new ArrayList<Movie>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,13 +124,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void save(View view) {
-        Intent intent = new Intent(MainActivity.this, ListViewDemo.class);
+        if(movie_obj == null){
+            Toast.makeText(getApplicationContext(), "No Movie Selected", Toast.LENGTH_SHORT).show();
+        }else{
+            Intent intent = new Intent(MainActivity.this, ListViewDemo.class);
+            intent.putExtra("MOVIE", movie_obj);
+            startActivity(intent);
+        }
+    }
 
-        movieList.add(movie_obj);
-        // Invoking the intent, start AnotherActivity
-        intent.putParcelableArrayListExtra("MOVIE_LIST", movieList);
+    public void openLists(View view) {
+        Intent intent = new Intent(MainActivity.this, ListViewDemo.class);
         startActivity(intent);
     }
+
 
     public void share(View view) {
     }

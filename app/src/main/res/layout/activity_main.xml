@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@android:color/white"
-    tools:context="edu.ucsb.ece.ece150.pickture.MainActivity">
+    tools:context="edu.ucsb.ece.ece150.film.MainActivity">
 
 
     <LinearLayout
@@ -56,6 +56,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Language" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="openLists"
+        android:text="View Lists" />
 
     <Button
         android:id="@+id/button"

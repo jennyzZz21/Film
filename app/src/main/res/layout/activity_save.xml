@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@android:color/white"
-    tools:context="edu.ucsb.ece.ece150.pickture.MainActivity">
+    tools:context="edu.ucsb.ece.ece150.film.MainActivity">
 
     <TextView
         android:id="@+id/textView"

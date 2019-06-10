@@ -1,4 +1,4 @@
-package edu.ucsb.ece.ece150.pickture;
+package edu.ucsb.ece.ece150.film;
 
 import android.os.Parcel;
 import android.os.Parcelable;

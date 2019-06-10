@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pickture</string>
+    <string name="app_name">Film</string>
     <string name="caption">Pick an image:</string>
     <string name="title_activity_gallery">Gallery</string>
 </resources>
