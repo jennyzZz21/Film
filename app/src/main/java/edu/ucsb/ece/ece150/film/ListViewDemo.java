@@ -2,6 +2,9 @@ package edu.ucsb.ece.ece150.film;
 
 import android.app.ListActivity;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import android.content.Context;
 import android.content.Intent;
@@ -40,6 +43,13 @@ public class ListViewDemo extends ListActivity {
         try {
             Movie movie = intent.getExtras().getParcelable("MOVIE");
             movieList.add(movie);
+            // Remove Repeated Movies
+            Set<Movie> set = new HashSet<>(movieList);
+            movieList.clear();
+            movieList.addAll(set);
+
+            // Sort and Save
+            Collections.sort(movieList);
             saveLists(getApplicationContext(), movieList);
         } catch(Exception e){
             e.printStackTrace();

@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if (result.equals("True")){
                                 Toast.makeText(MainActivity.this, "Found", Toast.LENGTH_SHORT).show();
+                                String title = movie.getString("Title");
                                 String year = movie.getString("Year");
                                 tvYear.setText("Year: " + year);
 
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                                     Picasso.get().load(posterUrl).into(ivPoster);
                                 }
 
-                                movie_obj = new Movie(mName, year, language, country, posterUrl);
+                                movie_obj = new Movie(title, year, language, country, posterUrl);
                             }
                             else{
                                 Toast.makeText(MainActivity.this, "Movie not found", Toast.LENGTH_SHORT).show();

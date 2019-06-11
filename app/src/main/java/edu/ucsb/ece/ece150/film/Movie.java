@@ -3,7 +3,7 @@ package edu.ucsb.ece.ece150.film;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Movie implements Parcelable {
+public class Movie implements Parcelable, Comparable {
     private String title;
     private String year;
     private String language;
@@ -39,6 +39,33 @@ public class Movie implements Parcelable {
         this.language = data[2];
         this.country = data[3];
         this.url = data[4];
+    }
+
+    @Override
+    public int compareTo(Object o){
+        Movie compMovie = (Movie) o;
+        return this.title.compareTo(compMovie.title);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Movie movie = (Movie) o;
+        return title.equals(movie.title) &&
+                year.equals(movie.year) &&
+                language.equals(movie.language) &&
+                country.equals(movie.country);
+    }
+
+    @Override
+    public int hashCode(){
+        String hashStr = title + year + language + country;
+        return hashStr.hashCode();
     }
 
     public int describeContents(){
