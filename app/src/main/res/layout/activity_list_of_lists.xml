@@ -7,20 +7,25 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@android:color/white"
-    tools:context="edu.ucsb.ece.ece150.film.MainActivity">
+    tools:context="edu.ucsb.ece.ece150.film.ListOfLists">
 
-    <TextView
-        android:id="@+id/textView"
+
+    <EditText
+        android:id="@+id/editText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="MyList" />
+        android:ems="10"
+        android:hint="New List Name"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add List" />
 
     <ListView
-        android:id="@android:id/list"
-        android:layout_width = "fill_parent"
-        android:layout_height = "match_parent"
-        android:divider = "#000"
-        android:dividerHeight = "1dp"
-        android:footerDividersEnabled = "false"
-        android:headerDividersEnabled = "false" />
+        android:id="@+id/main_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

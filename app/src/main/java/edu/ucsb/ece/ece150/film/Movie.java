@@ -1,7 +1,14 @@
 package edu.ucsb.ece.ece150.film;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
+
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 public class Movie implements Parcelable, Comparable {
     private String title;
@@ -87,4 +94,55 @@ public class Movie implements Parcelable, Comparable {
             return new Movie[size];
         }
     };
+
+    public static void removeMovie(Context context, ArrayList<Movie> movies, Movie removingMovie, String listName){
+        //Remove movie from sharedPreferences
+        removeMovieList(context, listName);
+
+        //Remove movie from movies and resave movies
+        movies.remove(removingMovie);
+        saveMovieList(context, movies, listName);
+    }
+
+
+    public static void saveMovieList(Context context, ArrayList<Movie> movies, String listName){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        int length = movies.size();
+        sharedPreferences.edit().putInt(listName + "Length", length).apply();
+        for(int i = 0; i < length; i++){
+            Movie currMovie = movies.get(i);
+            String movieStr = new Gson().toJson(currMovie);
+            sharedPreferences.edit().putString(listName + i, movieStr).apply();
+        }
+        sharedPreferences.edit().commit();
+    }
+
+    public static void removeMovieList(Context context, String listName){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        int length = sharedPreferences.getInt(listName + "Length", 0);
+        for (int i = 0; i < length; i++){
+            sharedPreferences.edit().remove(listName + i).apply();
+        }
+        sharedPreferences.edit().remove(listName + "Length").apply();
+        sharedPreferences.edit().commit();
+    }
+
+    public static ArrayList<Movie> loadMovieList(Context context, String listName){
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        try{
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            int length = sharedPreferences.getInt(listName + "Length", 0);
+            for (int i = 0; i < length; i++){
+                String json = sharedPreferences.getString(listName + i , null);
+                Movie currMovie = new Gson().fromJson(json, Movie.class);
+                movies.add(currMovie);
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return movies;
+    }
+
+
+
 }

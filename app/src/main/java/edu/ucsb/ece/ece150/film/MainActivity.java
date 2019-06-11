@@ -128,14 +128,14 @@ public class MainActivity extends AppCompatActivity {
         if(movie_obj == null){
             Toast.makeText(getApplicationContext(), "No Movie Selected", Toast.LENGTH_SHORT).show();
         }else{
-            Intent intent = new Intent(MainActivity.this, ListViewDemo.class);
+            Intent intent = new Intent(MainActivity.this, ListOfLists.class);
             intent.putExtra("MOVIE", movie_obj);
             startActivity(intent);
         }
     }
 
     public void openLists(View view) {
-        Intent intent = new Intent(MainActivity.this, ListViewDemo.class);
+        Intent intent = new Intent(MainActivity.this, ListOfLists.class);
         startActivity(intent);
     }
 
