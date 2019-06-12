@@ -15,6 +15,7 @@ public class Movie implements Parcelable, Comparable {
     private String year;
     private String language;
     private String country;
+    private  String plot;
     private String url;
 
     public void setTitle (String t){ this.title = t; }
@@ -27,25 +28,28 @@ public class Movie implements Parcelable, Comparable {
     public String getYear (){ return this.year;}
     public String getLanguage (){ return this.language;}
     public String getCountry (){ return this.country;}
+    public String getPlot (){return this.plot;}
     public String getUrl (){ return this.url;}
 
-    public Movie(String title, String year, String language, String country, String url){
+    public Movie(String title, String year, String language, String country, String plot, String url){
         this.title = title;
         this.year = year;
         this.language = language;
         this.country = country;
+        this.plot = plot;
         this.url = url;
     }
 
     public Movie(Parcel in){
-        String[] data = new String[5];
+        String[] data = new String[6];
         in.readStringArray(data);
         // the order needs to be the same as in writeToParcel() method
         this.title = data[0];
         this.year = data[1];
         this.language = data[2];
         this.country = data[3];
-        this.url = data[4];
+        this.plot = data[4];
+        this.url = data[5];
     }
 
     @Override
@@ -66,12 +70,13 @@ public class Movie implements Parcelable, Comparable {
         return title.equals(movie.title) &&
                 year.equals(movie.year) &&
                 language.equals(movie.language) &&
-                country.equals(movie.country);
+                country.equals(movie.country) &&
+                plot.equals(movie.plot);
     }
 
     @Override
     public int hashCode(){
-        String hashStr = title + year + language + country;
+        String hashStr = title + year + language + country + plot;
         return hashStr.hashCode();
     }
 
@@ -82,7 +87,7 @@ public class Movie implements Parcelable, Comparable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(new String[] {this.title, this.year, this.language, this.country,
-                this.url});
+                this.plot, this.url});
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

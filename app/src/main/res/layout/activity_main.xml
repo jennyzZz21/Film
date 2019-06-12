@@ -57,6 +57,12 @@
         android:layout_height="wrap_content"
         android:text="Language" />
 
+    <TextView
+        android:id="@+id/tvplot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Plot" />
+
     <Button
         android:id="@+id/button4"
         android:layout_width="match_parent"

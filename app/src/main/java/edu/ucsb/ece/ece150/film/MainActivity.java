@@ -39,7 +39,7 @@ import java.util.Locale;
  * Dig through the documentation, read your error logs.
  */
 public class MainActivity extends AppCompatActivity {
-    TextView tvYear, tvCountry, tvLanguage;
+    TextView tvYear, tvCountry, tvLanguage, tvPlot;
     ImageView ivPoster;
 
     EditText edMName;
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         tvYear = findViewById(R.id.tvYear);
         tvCountry = findViewById(R.id.tvCountry);
         tvLanguage = findViewById(R.id.tvLanguage);
+        tvPlot = findViewById(R.id.tvplot);
         ivPoster = findViewById(R.id.ivPoster);
 
         Intent intent = getIntent();
@@ -112,8 +113,11 @@ public class MainActivity extends AppCompatActivity {
                                 String year = movie.getString("Year");
                                 String country = movie.getString("Country");
                                 String language = movie.getString("Language");
+                                String plot = movie.getString("Plot");
+                                if (plot.length() > 400) {plot = plot.substring(0,400) + "...";}
                                 String posterUrl = movie.getString("Poster");
-                                movie_obj = new Movie(title, year, language, country, posterUrl);
+
+                                movie_obj = new Movie(title, year, language, country, plot, posterUrl);
                                 drawMovie(movie_obj);
                             }
                             else{
@@ -138,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         tvYear.setText("Year: " + movie.getYear());
         tvCountry.setText("Country: " + movie.getCountry());
         tvLanguage.setText("Language: " + movie.getLanguage());
+        tvPlot.setText("Plot: " + movie.getPlot());
 
         String posterUrl = movie.getUrl();
         if (posterUrl.equals("N/A")){ }
