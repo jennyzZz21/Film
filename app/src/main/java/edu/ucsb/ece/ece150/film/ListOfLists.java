@@ -52,6 +52,7 @@ public class ListOfLists extends AppCompatActivity {
                 adapter.remove(listToRemove);
                 removeList(getApplicationContext(), itemList, listToRemove);
                 Toast.makeText(getApplicationContext(), "List Deleted", Toast.LENGTH_SHORT).show();
+                adapter.notifyDataSetChanged();
                 return false;
             }
         });

@@ -42,9 +42,10 @@ public class ListViewDemo extends ListActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Movie movieToRemove = movieList.get(position);
-                adapter.remove(movieToRemove);
-                Movie.removeMovie(getApplicationContext(), movieList, movieToRemove, listName);
+                movieList = Movie.removeMovie(getApplicationContext(), movieList, movieToRemove, listName);
                 Toast.makeText(getApplicationContext(), "Movie Deleted", Toast.LENGTH_SHORT).show();
+                adapter = new CustomAdapter(getApplicationContext(), movieList);
+                setListAdapter(adapter);
                 return true;
             }
         });

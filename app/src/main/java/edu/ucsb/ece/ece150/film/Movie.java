@@ -100,13 +100,14 @@ public class Movie implements Parcelable, Comparable {
         }
     };
 
-    public static void removeMovie(Context context, ArrayList<Movie> movies, Movie removingMovie, String listName){
+    public static ArrayList<Movie> removeMovie(Context context, ArrayList<Movie> movies, Movie removingMovie, String listName){
         //Remove movie from sharedPreferences
         removeMovieList(context, listName);
 
         //Remove movie from movies and resave movies
         movies.remove(removingMovie);
         saveMovieList(context, movies, listName);
+        return movies;
     }
 
 
