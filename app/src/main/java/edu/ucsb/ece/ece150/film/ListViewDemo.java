@@ -67,7 +67,11 @@ public class ListViewDemo extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id){
         super.onListItemClick(l, v, position, id);
-        Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
+        Movie currMovie = movieList.get(position);
+
+        Intent intent = new Intent(ListViewDemo.this, MainActivity.class);
+        intent.putExtra("MOVIE", currMovie);
+        startActivity(intent);
     }
 
 }

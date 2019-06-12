@@ -50,6 +50,15 @@ public class MainActivity extends AppCompatActivity {
         tvCountry = findViewById(R.id.tvCountry);
         tvLanguage = findViewById(R.id.tvLanguage);
         ivPoster = findViewById(R.id.ivPoster);
+
+        Intent intent = getIntent();
+        try {
+            movie_obj = intent.getExtras().getParcelable("MOVIE");
+            edMName.setText(movie_obj.getTitle());
+            drawMovie(movie_obj);
+        }catch(Exception e){
+            edMName.setText("");
+        }
     }
 
     @Override
@@ -89,22 +98,11 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Found", Toast.LENGTH_SHORT).show();
                                 String title = movie.getString("Title");
                                 String year = movie.getString("Year");
-                                tvYear.setText("Year: " + year);
-
                                 String country = movie.getString("Country");
-                                tvCountry.setText("Country: " + country);
-
                                 String language = movie.getString("Language");
-                                tvLanguage.setText("Language: " + language);
-
                                 String posterUrl = movie.getString("Poster");
-
-                                if (posterUrl.equals("N/A")){ }
-                                else{
-                                    Picasso.get().load(posterUrl).into(ivPoster);
-                                }
-
                                 movie_obj = new Movie(title, year, language, country, posterUrl);
+                                drawMovie(movie_obj);
                             }
                             else{
                                 Toast.makeText(MainActivity.this, "Movie not found", Toast.LENGTH_SHORT).show();
@@ -122,6 +120,18 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
         queue.add(request);
+    }
+
+    public void drawMovie(Movie movie){
+        tvYear.setText("Year: " + movie.getYear());
+        tvCountry.setText("Country: " + movie.getCountry());
+        tvLanguage.setText("Language: " + movie.getLanguage());
+
+        String posterUrl = movie.getUrl();
+        if (posterUrl.equals("N/A")){ }
+        else{
+            Picasso.get().load(posterUrl).into(ivPoster);
+        }
     }
 
     public void save(View view) {
