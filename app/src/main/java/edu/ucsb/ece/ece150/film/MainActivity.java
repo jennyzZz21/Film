@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                                 String country = movie.getString("Country");
                                 String language = movie.getString("Language");
                                 String plot = movie.getString("Plot");
-                                if (plot.length() > 400) {plot = plot.substring(0,400) + "...";}
+                                if (plot.length() > 100) {plot = plot.substring(0,100) + "...";}
                                 String posterUrl = movie.getString("Poster");
 
                                 movie_obj = new Movie(title, year, language, country, plot, posterUrl);

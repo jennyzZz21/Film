@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.Set;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.util.SparseBooleanArray;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,11 +43,20 @@ public class ListViewDemo extends ListActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Movie movieToRemove = movieList.get(position);
-                movieList = Movie.removeMovie(getApplicationContext(), movieList, movieToRemove, listName);
-                Toast.makeText(getApplicationContext(), "Movie Deleted", Toast.LENGTH_SHORT).show();
-                adapter = new CustomAdapter(getApplicationContext(), movieList);
-                setListAdapter(adapter);
+                AlertDialog.Builder adb=new AlertDialog.Builder(ListViewDemo.this);
+                adb.setTitle("Delete?");
+                adb.setMessage("Are you sure you want to delete?");
+                final int positionToRemove = position;
+                adb.setNegativeButton("Cancel", null);
+                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Movie movieToRemove = movieList.get(positionToRemove);
+                        movieList = Movie.removeMovie(getApplicationContext(), movieList, movieToRemove, listName);
+                        Toast.makeText(getApplicationContext(), "Movie Deleted", Toast.LENGTH_SHORT).show();
+                        adapter = new CustomAdapter(getApplicationContext(), movieList);
+                        setListAdapter(adapter);
+                    }});
+                adb.show();
                 return true;
             }
         });
@@ -59,6 +70,7 @@ public class ListViewDemo extends ListActivity {
         } catch(Exception e){
             e.printStackTrace();
         }
+
 
 
         adapter = new CustomAdapter(this, movieList);

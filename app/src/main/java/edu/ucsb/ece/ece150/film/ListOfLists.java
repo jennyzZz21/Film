@@ -1,9 +1,11 @@
 package edu.ucsb.ece.ece150.film;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -48,12 +50,21 @@ public class ListOfLists extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String listToRemove = itemList.get(position);
-                adapter.remove(listToRemove);
-                removeList(getApplicationContext(), itemList, listToRemove);
-                Toast.makeText(getApplicationContext(), "List Deleted", Toast.LENGTH_SHORT).show();
-                adapter.notifyDataSetChanged();
-                return false;
+                AlertDialog.Builder adb=new AlertDialog.Builder(ListOfLists.this);
+                adb.setTitle("Delete?");
+                adb.setMessage("Are you sure you want to delete?");
+                final int positionToRemove = position;
+                adb.setNegativeButton("Cancel", null);
+                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String listToRemove = itemList.get(positionToRemove);
+                        adapter.remove(listToRemove);
+                        removeList(getApplicationContext(), itemList, listToRemove);
+                        Toast.makeText(getApplicationContext(), "List Deleted", Toast.LENGTH_SHORT).show();
+                        adapter.notifyDataSetChanged();
+                    }});
+                adb.show();
+                return true;
             }
         });
 
